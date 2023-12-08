@@ -1,5 +1,7 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
+
+import { player } from './slices/player'
 
 // createSlice é uma parte pequena do estado(por exemplo um estado para carrinho
 // em um e-commerce) ou até um estado de todo
@@ -17,7 +19,9 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux'
 export const store = configureStore({
   // reducer é exatamente as informações que vão ser compartilhadas entre todos
   // os componentes da aplicação
-  reducer: {}
+  reducer: {
+    player
+  }
 })
 
 export type RootState = ReturnType<typeof store.getState>
