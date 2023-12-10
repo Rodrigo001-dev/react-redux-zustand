@@ -12,9 +12,14 @@ interface ModuleProps {
 }
 
 export function Module({ moduleIndex, title, amountOfLessons }: ModuleProps) {
-  const { isLoading, currentLessonIndex, currentModuleIndex, play } = useStore()
-  const lessons = useStore((state) => {
-    return state.course?.modules[moduleIndex].lessons
+  const { isLoading, lessons, currentLessonIndex, currentModuleIndex, play } = useStore(store => {
+    return {
+      isLoading: store.isLoading,
+      lessons: store.course?.modules[moduleIndex].lessons,
+      currentLessonIndex: store.currentLessonIndex,
+      currentModuleIndex: store.currentModuleIndex,
+      play: store.play
+    }
   })
   
   if (isLoading) {
