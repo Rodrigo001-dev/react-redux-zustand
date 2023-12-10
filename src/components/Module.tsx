@@ -14,11 +14,43 @@ interface ModuleProps {
 
 export function Module({ moduleIndex, title, amountOfLessons }: ModuleProps) {
   const dispatch = useAppDispatch()
-  
   const lessons = useAppSelector((state) => {
     return state.player.course?.modules[moduleIndex].lessons
   })
+  const isCourseLoading = useAppSelector(state => state.player.isLoading)
   
+  if (isCourseLoading) {
+    return (
+      <div className="group">
+        <button className="flex w-full items-center gap-3 bg-zinc-800 p-4 animate-pulse">
+          <div className="flex h-10 w-10 rounded-full items-center justify-center bg-zinc-950 text-xs">
+            0
+          </div>
+
+          <div className="flex flex-col gap-1 text-left">
+            <strong className="text-sm">Carregando...</strong>
+            <span className="text-xs text-zinc-400">Carregando...</span>
+          </div>
+
+          <ChevronDown className="w-5 h-5 ml-auto text-zinc-400 group-data-[state=open]:rotate-180 transition-transform duration-200" />
+        </button>
+
+        <nav className="relative flex flex-col gap-4 p-6 animate-pulse">
+          {Array.from({ length: 3 }).map((_, lessonIndex) => {
+            return (
+              <Lesson
+                key={lessonIndex}
+                title="Cargando..."
+                duration={'00:00'}
+                onPlay={() => {}}
+              />
+            )
+          })}
+        </nav>
+      </div>
+    )
+  }
+
   return (
     <Collapsible.Root className="group" defaultOpen={moduleIndex === 0}>
       <Collapsible.Trigger className="flex w-full items-center gap-3 bg-zinc-800 p-4">

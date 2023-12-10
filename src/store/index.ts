@@ -20,7 +20,7 @@ export const store = configureStore({
   // reducer é exatamente as informações que vão ser compartilhadas entre todos
   // os componentes da aplicação
   reducer: {
-    player
+    player: player
   }
 })
 
